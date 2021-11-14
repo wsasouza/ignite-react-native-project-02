@@ -22,6 +22,10 @@ export function AppRoutes(){
         tabBarStyle: {
           height: 72,
           paddingVertical: Platform.OS === 'ios' ? 20 : 0          
+        },
+        tabBarLabelStyle: {
+          fontFamily: theme.fonts.medium,
+          fontSize: 14          
         }
       }}
     >
@@ -40,8 +44,8 @@ export function AppRoutes(){
       />
        <Screen 
         name="Cadastrar"
-        component={Register} 
-        options={{
+        component={Register}         
+        options={{          
           tabBarIcon: (({ size, color }) => 
             <Feather
               name="dollar-sign"
