@@ -16,12 +16,14 @@ export function AppRoutes(){
     <Navigator
       screenOptions={{
         headerShown: false,
+        tabBarHideOnKeyboard: true,        
         tabBarActiveTintColor: theme.colors.secondary,
         tabBarInactiveTintColor: theme.colors.text,
         tabBarLabelPosition: 'beside-icon',
         tabBarStyle: {
           height: 72,
-          paddingVertical: Platform.OS === 'ios' ? 20 : 0          
+          paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+          
         },
         tabBarLabelStyle: {
           fontFamily: theme.fonts.medium,

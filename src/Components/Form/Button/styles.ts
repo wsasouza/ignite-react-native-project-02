@@ -8,7 +8,7 @@ export const Container = styled(RectButton)`
 
   border-radius: 5px;
   align-items: center;
-  padding: 18px;
+  padding: 18px;  
 `;
 
 export const Title = styled.Text`
