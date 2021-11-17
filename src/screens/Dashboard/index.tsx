@@ -55,15 +55,30 @@ export function Dashboard(){
     const lastTransactionDate = Math.max.apply(Math, collection
       .filter(transaction => transaction.type === type)
       .map(transaction => new Date(transaction.date)
-      .getTime()));
+      .getTime()));    
     
     const lastTransactionDateFormatted = Intl
       .DateTimeFormat('pt-BR', {
         day: '2-digit',
         month: 'long'        
-        }).format(new Date(lastTransactionDate));
+        }).format(new Date(lastTransactionDate));    
 
     return lastTransactionDateFormatted;
+  }
+
+  function getLastTransactionInterval(collection: DataListProps[]){
+    
+    const lastTransactionInterval = Math.max.apply(Math, collection      
+      .map(transaction => new Date(transaction.date)
+      .getTime()));
+
+    const lastTransactionIntervalFormatted = Intl
+      .DateTimeFormat('pt-BR', {
+        day: '2-digit',
+        month: 'long'        
+      }).format(new Date(lastTransactionInterval));
+    
+    return lastTransactionIntervalFormatted;
   }
 
   async function loadTransactions(){
@@ -113,7 +128,9 @@ export function Dashboard(){
 
     const lastTransactionExpenses = getLastTransactionDate(
       transactions, 'negative'
-    );         
+    );  
+    
+    const lastTransactionInterval = getLastTransactionInterval(transactions);
 
     const total = entriesTotal - expensesTotal;
 
@@ -124,7 +141,7 @@ export function Dashboard(){
             style: 'currency',
             currency: 'BRL'
           }),
-        lastTransaction: lastTransactionEntries
+        lastTransaction: `Última entrada dia ${lastTransactionEntries}`
       },
       expenses: {
         amount: expensesTotal
@@ -132,7 +149,7 @@ export function Dashboard(){
           style: 'currency',
           currency: 'BRL'
         }),
-        lastTransaction: lastTransactionExpenses
+        lastTransaction: `Última saída dia ${lastTransactionExpenses}`
       },
       total: {
         amount: total
@@ -140,7 +157,7 @@ export function Dashboard(){
           style: 'currency',
           currency: 'BRL'        
         }),
-        lastTransaction: ''
+        lastTransaction: `01 à ${lastTransactionInterval}`
       }
     });
 
@@ -184,19 +201,19 @@ export function Dashboard(){
               type="up"
               title="Entradas"
               amount={highlightData.entries.amount}
-              lastTransaction={`Última entrada dia ${highlightData.entries.lastTransaction}`}
+              lastTransaction={highlightData.entries.lastTransaction}
             />
             <HighlightCard 
               type="down"
               title="Saídas"
               amount={highlightData.expenses.amount}
-              lastTransaction={`Última saída dia ${highlightData.expenses.lastTransaction}`}
+              lastTransaction={highlightData.expenses.lastTransaction}
             />
             <HighlightCard 
               type="total"
               title="Total"
               amount={highlightData.total.amount}
-              lastTransaction="01 à 10 de novembro"
+              lastTransaction={highlightData.total.lastTransaction}
             />
           </HighlightCards >
 
