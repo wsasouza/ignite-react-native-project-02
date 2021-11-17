@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Alert,
   Keyboard, 
@@ -48,9 +48,7 @@ const schema = Yup.object().shape({
 export function Register() {  
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
-
-  const dataKey = '@gofinances:transactions';
-  
+    
   const [category, setCategory] = useState({
     key: 'category',
     name: 'Categoria'    
@@ -96,12 +94,14 @@ export function Register() {
     }
 
     try { 
+      const dataKey = '@gofinances:transactions';
+
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
 
       const dataFormatted = [
-        ...currentData,
-        newTransaction
+        newTransaction,
+        ...currentData        
       ];
       
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
@@ -119,22 +119,7 @@ export function Register() {
       console.log(error);
       Alert.alert('Não foi possível cadastrar');
     }
-  }
-
-  useEffect(() => {
-    async function loadData(){
-      const data = await AsyncStorage.getItem(dataKey);
-      console.log(JSON.parse(data!));
-    }
-
-    loadData();
-
-    // async function removeAll(){
-    //   await AsyncStorage.removeItem(dataKey);
-    // }
-
-    // removeAll()
-  }, []);
+  } 
 
   return(
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
