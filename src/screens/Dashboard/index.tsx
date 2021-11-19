@@ -26,11 +26,9 @@ import {
 } from './styles';
 import { useTheme } from 'styled-components';
 
-
 export interface DataListProps extends TransactionCardProps {
   id: string;
 }
-
 interface HighlightProps {
   amount: string;
   lastTransaction: string;
