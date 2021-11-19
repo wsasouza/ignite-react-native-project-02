@@ -7,12 +7,17 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { HistoryCard } from '../../Components/HistoryCard';
 import { categories } from '../../utils/categories';
 
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components';
 import { 
   Container,
   Header,
   Title,
   Content,
+  MonthSelect,
+  MonthSelectButton,
+  MonthSelectIcon,
+  Month,
   ChartContainer
 } from './styles';
 interface TransactionData {   
@@ -35,6 +40,7 @@ export function Resume() {
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
 
   const theme = useTheme();
+
 
   async function loadData(){
     const dataKey = '@gofinances:transactions';
@@ -98,7 +104,26 @@ export function Resume() {
         <Title>Resumo por categoria</Title>
       </Header>
 
-      <Content>
+      <Content
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingBottom: useBottomTabBarHeight()
+        }}
+      >
+
+        <MonthSelect>
+          <MonthSelectButton>
+            <MonthSelectIcon name="chevron-left"/>
+          </MonthSelectButton>
+
+          <Month>Novembro</Month>
+
+          <MonthSelectButton>
+            <MonthSelectIcon name="chevron-right"/>
+          </MonthSelectButton>
+        </MonthSelect>
+
         <ChartContainer>
           <VictoryPie 
             data={totalByCategories}
