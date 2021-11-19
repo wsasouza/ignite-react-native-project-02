@@ -125,7 +125,7 @@ export function Register() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
       <Container>      
         <Header>
-          <Title>Cadastro</Title>
+          <Title>Lançamento</Title>
         </Header>
 
         <Form>
@@ -150,13 +150,13 @@ export function Register() {
             <TransactionTypes>
               <TransactionTypeButton 
                 type="up"
-                title="income"
+                title="Receita"
                 onPress={() => handleTransactionTypeSelected('positive')}
                 isActive={transactionType === 'positive'}
               />
               <TransactionTypeButton 
                 type="down"
-                title="outcome"
+                title="Despesa"
                 onPress={() => handleTransactionTypeSelected('negative')}
                 isActive={transactionType === 'negative'}
               />

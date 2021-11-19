@@ -211,14 +211,14 @@ export function Dashboard(){
             />
             <HighlightCard 
               type="total"
-              title="Total"
+              title="Balanço"
               amount={highlightData.total.amount}
               lastTransaction={highlightData.total.lastTransaction}
             />
           </HighlightCards >
 
           <Transactions>
-            <Title>Listagem</Title>
+            <Title>Lançamentos</Title>
 
             <TransactionList 
               data={transactions}
