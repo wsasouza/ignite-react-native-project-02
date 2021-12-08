@@ -42,7 +42,7 @@ export default function App() {
           barStyle="light-content"
         />
         <AuthProvider>
-          <AppRoutes />
+          <SignIn />
         </AuthProvider>
 
       </NavigationContainer>
