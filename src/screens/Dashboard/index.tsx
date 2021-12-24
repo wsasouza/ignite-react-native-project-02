@@ -52,9 +52,16 @@ export function Dashboard(){
     collection: DataListProps[],
     type: 'positive' | 'negative'
   ){
-    const lastTransaction = new Date(
-      Math.max.apply(Math, collection
+    const collectionFilttered = collection
       .filter(transaction => transaction.type === type)
+
+    console.log(type, collectionFilttered)
+
+    if(collectionFilttered.length === 0)
+      return 0;
+
+    const lastTransaction = new Date(
+      Math.max.apply(Math, collectionFilttered      
       .map(transaction => new Date(transaction.date)
       .getTime())));     
 
@@ -77,7 +84,7 @@ export function Dashboard(){
   }
 
   async function loadTransactions(){
-    const dataKey = '@gofinances:transactions';
+    const dataKey = `@gofinances:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
 
@@ -124,8 +131,10 @@ export function Dashboard(){
     const lastTransactionExpenses = getLastTransactionDate(
       transactions, 'negative'
     );  
-    
-    const lastTransactionInterval = getLastTransactionInterval(transactions);
+
+    const lastTransactionInterval = lastTransactionExpenses === 0 
+    ? 'Não há transações de saída'
+    : `01 a ${lastTransactionExpenses}`;    
 
     const total = entriesTotal - expensesTotal;
 
@@ -136,7 +145,9 @@ export function Dashboard(){
             style: 'currency',
             currency: 'BRL'
           }),
-        lastTransaction: `Última entrada dia ${lastTransactionEntries}`
+        lastTransaction: lastTransactionEntries === 0 
+          ? 'Não há transações' 
+          : `Última entrada dia ${lastTransactionEntries}`
       },
       expenses: {
         amount: expensesTotal
@@ -144,7 +155,9 @@ export function Dashboard(){
           style: 'currency',
           currency: 'BRL'
         }),
-        lastTransaction: `Última saída dia ${lastTransactionExpenses}`
+        lastTransaction: lastTransactionExpenses === 0
+          ? 'Não há transações'
+          : `Última saída dia ${lastTransactionExpenses}`
       },
       total: {
         amount: total
@@ -152,7 +165,7 @@ export function Dashboard(){
           style: 'currency',
           currency: 'BRL'        
         }),
-        lastTransaction: `01 à ${lastTransactionInterval}`
+        lastTransaction: `${lastTransactionInterval}`
       }
     });
 
