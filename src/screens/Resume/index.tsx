@@ -109,9 +109,9 @@ export function Resume() {
     setIsLoading(false);
   }
 
-  // useEffect(() => {
-  //   loadData();
-  // }, [selectedDate]);
+  useEffect(() => {
+    loadData();
+  }, [selectedDate]);
 
   useFocusEffect(useCallback(() => {
     loadData();

@@ -31,6 +31,7 @@ import {
   Fields,
   TransactionTypes
 } from './styles';
+import { useEffect } from 'react';
 interface FormData {
   name: string;
   amount: string;
@@ -113,13 +114,25 @@ export function Register() {
         name: 'Categoria'
       });
 
-      navigate('Listagem');
+      navigate('Listagem');     
 
     } catch (error) {
       console.log(error);
       Alert.alert('Não foi possível cadastrar');
     }
   } 
+  // const dataKey = '@gofinances:transactions';
+
+  // useEffect(() => {
+  //   async function removeAll(){
+  //     await AsyncStorage.removeItem(dataKey)
+  //   }
+
+  //   removeAll();
+
+  // }, []);
+  
+ 
 
   return(
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 

@@ -3,6 +3,8 @@ import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useFocusEffect } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
+import { useAuth } from '../../hooks/auth';
 
 import { HighlightCard } from '../../Components/HighlightCard';
 import { TransactionCard, TransactionCardProps } from '../../Components/TransactionCard';
@@ -24,7 +26,6 @@ import {
   TransactionList,
   LoadContainer
 } from './styles';
-import { useTheme } from 'styled-components';
 
 export interface DataListProps extends TransactionCardProps {
   id: string;
@@ -45,23 +46,19 @@ export function Dashboard(){
   const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData);
 
   const theme = useTheme();
+  const { signOut, user } = useAuth();
 
   function getLastTransactionDate(
     collection: DataListProps[],
     type: 'positive' | 'negative'
   ){
-    const lastTransactionDate = Math.max.apply(Math, collection
+    const lastTransaction = new Date(
+      Math.max.apply(Math, collection
       .filter(transaction => transaction.type === type)
       .map(transaction => new Date(transaction.date)
-      .getTime()));    
-    
-    const lastTransactionDateFormatted = Intl
-      .DateTimeFormat('pt-BR', {
-        day: '2-digit',
-        month: 'long'        
-        }).format(new Date(lastTransactionDate));    
+      .getTime())));     
 
-    return lastTransactionDateFormatted;
+    return `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString('pt-BR', {month: 'long'})}`;
   }
 
   function getLastTransactionInterval(collection: DataListProps[]){
@@ -161,16 +158,11 @@ export function Dashboard(){
 
     setIsLoading(false);
   }
-
-  useEffect(() => {
-    loadTransactions();    
-  }, []);
-
+  
   useFocusEffect(useCallback(() => {
     loadTransactions();
   }, []));
-
-
+  
   return (    
     <Container>      
       { isLoading ? 
@@ -181,14 +173,14 @@ export function Dashboard(){
           <Header>
             <UserWrapper>
               <UserInfo>
-                <Avatar source={{ uri: 'https://github.com/wsasouza.png' }} />
+                <Avatar source={{ uri: user.photo }} />
                 <User>
                   <UserGreeting>Olá,</UserGreeting>
-                  <UserName>Walter</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>            
               </UserInfo>
 
-              <LogoutButton onPress={() => {}}>
+              <LogoutButton onPress={signOut}>
                 <Icon name="power" />
               </LogoutButton>
             </UserWrapper>        
