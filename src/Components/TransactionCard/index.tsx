@@ -28,6 +28,7 @@ export function TransactionCard({ data } : Props){
   const [ category ] = categories.filter(
     item => item.key === data.category
   );
+  console.log(data);
 
   return (
     <Container>

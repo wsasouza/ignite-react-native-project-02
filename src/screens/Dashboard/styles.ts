@@ -107,4 +107,3 @@ export const TransactionList = styled(
 })
 ``;
 
-
