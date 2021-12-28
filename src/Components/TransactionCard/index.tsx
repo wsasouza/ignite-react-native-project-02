@@ -3,8 +3,11 @@ import { categories } from '../../utils/categories';
 
 import { 
   Container,
+  Header,
+  DataCard,
   Title,
   Amount,
+  RemoveTransaction,
   Footer,
   Category,
   Icon,
@@ -13,6 +16,7 @@ import {
 } from './styles';
 
 export interface TransactionCardProps {  
+  id: string;
   type: 'positive' | 'negative';
   name: string;
   amount: string;
@@ -20,24 +24,32 @@ export interface TransactionCardProps {
   date: string;
 }
 interface Props {
-  data: TransactionCardProps;  
+  data: TransactionCardProps; 
+  removeTransaction: (id: string) => void; 
 }
 
 
-export function TransactionCard({ data } : Props){
+export function TransactionCard({ data, removeTransaction } : Props){
   const [ category ] = categories.filter(
     item => item.key === data.category
-  );
-  console.log(data);
+  );  
 
   return (
     <Container>
-      <Title>{data.name}</Title>
+      <Header>
+        <DataCard>
+          <Title>{data.name}</Title>
 
-      <Amount type={data.type}>
-        {data.type === 'negative' && '- '}
-        {data.amount}
-      </Amount>
+          <Amount type={data.type}>
+            {data.type === 'negative' && '- '}
+            {data.amount}
+          </Amount>
+        </DataCard>
+
+        <RemoveTransaction onPress={() => removeTransaction(data.id)}>
+          <Icon name="trash" />
+        </RemoveTransaction>
+      </Header>      
 
       <Footer>
         <Category>

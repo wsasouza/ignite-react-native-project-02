@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useFocusEffect } from '@react-navigation/native';
@@ -47,8 +47,8 @@ export function Dashboard() {
   const [transactions, setTransactions] = useState<DataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<HighlightData>(
     {} as HighlightData
-  );
-
+  );  
+  
   const theme = useTheme();
   const { signOut, user } = useAuth();
 
@@ -95,8 +95,8 @@ export function Dashboard() {
     
   }
 
-  async function loadTransactions() {
-    const dataKey = `@gofinances:transactions_user:${user.id}`;
+  async function loadTransactions() { 
+    const dataKey = `@gofinances:transactions_user:${user.id}`;   
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
 
@@ -182,6 +182,35 @@ export function Dashboard() {
     setIsLoading(false);
   }  
 
+  function handleRemoveTransaction(id: string) {    
+
+    Alert.alert('Remover lançamento', 'Tem certeza que você deseja remover esse lançamento?', [
+      {
+        style: 'cancel',
+        text: 'Não'
+      },
+      {
+        style: 'destructive',
+        text: 'Sim',
+        onPress: async () => {
+          try {
+            const dataKey = `@gofinances:transactions_user:${user.id}`;
+            const response = await AsyncStorage.getItem(dataKey);
+            const transactions = response ? JSON.parse(response) : [];
+            const alteredTransactions = transactions.filter(
+              (transaction: { id: string; }) => transaction.id !== id
+            )
+            AsyncStorage.setItem(dataKey, JSON.stringify(alteredTransactions));
+            loadTransactions();
+          } catch (error) {
+            console.log(error);
+            Alert.alert('Não foi possível deletar essa transação');
+          }          
+        }
+      }
+    ])
+  }
+
   useFocusEffect(
     useCallback(() => {
       loadTransactions();
@@ -227,7 +256,7 @@ export function Dashboard() {
             />
             <HighlightCard
               type="total"
-              title="Balanço"
+              title="Saldo"
               amount={highlightData.total.amount}
               lastTransaction={highlightData.total.lastTransaction}
             />
@@ -239,7 +268,11 @@ export function Dashboard() {
             <TransactionList
               data={transactions}
               keyExtractor={(item) => item.id}
-              renderItem={({ item }) => <TransactionCard data={item} />}
+              renderItem={({ item }) => 
+                <TransactionCard 
+                  data={item} 
+                  removeTransaction={handleRemoveTransaction} 
+                />}
             />
           </Transactions>
         </>
