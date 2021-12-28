@@ -47,7 +47,7 @@ export function TransactionCard({ data, removeTransaction } : Props){
         </DataCard>
 
         <RemoveTransaction onPress={() => removeTransaction(data.id)}>
-          <Icon name="trash" />
+          <Icon name="trash-2" />
         </RemoveTransaction>
       </Header>      
 
