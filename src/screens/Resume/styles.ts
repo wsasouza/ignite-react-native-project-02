@@ -60,4 +60,5 @@ export const ChartContainer = styled.View`
   align-items: center;
   justify-content: center;  
   flex: 1;
+  height: 350px;  
 `;

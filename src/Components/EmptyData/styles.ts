@@ -8,6 +8,7 @@ export const EmptyListContainer = styled.View`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 `; 
 
 export const Icon = styled(Feather)`

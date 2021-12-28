@@ -25,6 +25,7 @@ import {
   Month,
   ChartContainer
 } from './styles';
+import { EmptyData } from '../../Components/EmptyData';
 interface TransactionData {   
   type: 'positive' | 'negative';
   name: string;
@@ -155,7 +156,11 @@ export function Resume() {
               </MonthSelect>
 
               <ChartContainer>
-                <VictoryPie 
+              {totalByCategories.length === 0 ? (
+                 <EmptyData /> 
+               ) : (
+               
+                 <VictoryPie 
                   data={totalByCategories}
                   colorScale={totalByCategories.map(category => category.color)}
                   style={{
@@ -171,6 +176,8 @@ export function Resume() {
                   y="total"
                   height={350}
                 />
+               )
+               }
               </ChartContainer>
 
               {
