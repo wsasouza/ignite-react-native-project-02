@@ -4,6 +4,7 @@
     "slug": "gofinances",
     "scheme": "gofinances",
     "version": "1.0.0",
+    "orientation": "portrait",
     "assetBundlePatterns": [
       "**/*"
     ]
