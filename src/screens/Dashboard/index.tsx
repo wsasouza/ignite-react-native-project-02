@@ -180,8 +180,7 @@ export function Dashboard() {
     });
 
     setIsLoading(false);
-  }
-  
+  }  
 
   useFocusEffect(
     useCallback(() => {
