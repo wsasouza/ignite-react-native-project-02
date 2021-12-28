@@ -7,6 +7,7 @@ import { useTheme } from 'styled-components';
 import { useAuth } from '../../hooks/auth';
 
 import { HighlightCard } from '../../Components/HighlightCard';
+import { EmptyData } from '../../Components/EmptyData';
 import {
   TransactionCard,
   TransactionCardProps,
@@ -23,7 +24,7 @@ import {
   UserGreeting,
   UserName,
   Icon,
-  HighlightCards,
+  HighlightCards,  
   Transactions,
   Title,
   TransactionList,
@@ -262,19 +263,25 @@ export function Dashboard() {
             />
           </HighlightCards>
 
-          <Transactions>
-            <Title>Lançamentos</Title>
+          {transactions.length === 0 ? (
+            <EmptyData />
+            ) : (
 
-            <TransactionList
-              data={transactions}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => 
-                <TransactionCard 
-                  data={item} 
-                  removeTransaction={handleRemoveTransaction} 
-                />}
-            />
-          </Transactions>
+            <Transactions>
+              <Title>Lançamentos</Title>
+
+              <TransactionList
+                data={transactions}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => 
+                  <TransactionCard 
+                    data={item} 
+                    removeTransaction={handleRemoveTransaction} 
+                  />}
+              />
+            </Transactions>
+            )
+          }
         </>
       )}
     </Container>

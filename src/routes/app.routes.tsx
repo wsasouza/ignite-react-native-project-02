@@ -51,7 +51,7 @@ export function AppRoutes(){
         options={{          
           tabBarIcon: (({ size, color }) => 
             <Feather
-              name="dollar-sign"
+              name="edit"
               size={size}
               color={color}
             />

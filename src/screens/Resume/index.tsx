@@ -125,7 +125,7 @@ export function Resume() {
     <Container>     
           
       <Header>
-        <Title>Resumo das Despesas</Title>
+        <Title>Resumo das despesas</Title>
       </Header>
       { isLoading ? 
             <LoadContainer>            
