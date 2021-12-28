@@ -161,12 +161,12 @@ export function Resume() {
                   style={{
                     labels: { 
                       fontFamily: theme.fonts.bold,
-                      fontSize: RFValue(18),
+                      fontSize: RFValue(12),
                       fontWeight: 'bold',
                       fill: theme.colors.text_dark
                     }
                   }}
-                  labelRadius={130}
+                  labelRadius={135}
                   x="percent"
                   y="total"
                   height={350}

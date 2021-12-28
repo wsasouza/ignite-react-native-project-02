@@ -66,10 +66,20 @@ export function SignIn() {
             muito simples
           </Title>
 
-          <SignInTitle>
-            Faça seu login com {'\n'}
-            uma das contas abaixo
-          </SignInTitle>
+          {
+            Platform.OS === 'android' &&
+            <SignInTitle>
+              Faça seu login com           
+            </SignInTitle>
+          }
+
+          {
+            Platform.OS === 'ios' &&
+            <SignInTitle>
+              Faça seu login com {'\n'}
+              uma das contas abaixo
+            </SignInTitle>
+          }
         </TitleWrapper>
       </Header>
 
