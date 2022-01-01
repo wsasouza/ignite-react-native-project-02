@@ -264,7 +264,10 @@ export function Dashboard() {
           </HighlightCards>
 
           {transactions.length === 0 ? (
-            <EmptyData />
+            <EmptyData 
+              icon="smile"
+              text={`Comece já a cadastrar\n as suas \n despesas e receitas...`}
+            />
             ) : (
 
             <Transactions>

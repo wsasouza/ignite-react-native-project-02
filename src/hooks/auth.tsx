@@ -66,14 +66,9 @@ function AuthProvider({ children }: AuthProviderProps) {
           photo: userInfo.picture
         }
                     
-        setUser(userLoggedIn);
-        console.log(userLoggedIn);
-        AsyncStorage.setItem(userStorageKey, JSON.stringify(userLoggedIn));
-        
-       
+        setUser(userLoggedIn);        
+        AsyncStorage.setItem(userStorageKey, JSON.stringify(userLoggedIn)); 
       }
-
-
     } catch (error) {
       throw new Error(error);
     }

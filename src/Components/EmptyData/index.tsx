@@ -6,14 +6,17 @@ import {
   EmptyListText
 } from './styles';
 
-export function EmptyData(){
+interface Props {
+  icon: string 
+  text: string;
+}
+
+export function EmptyData({ icon, text }: Props){
   return (
     <EmptyListContainer>
-          <Icon name="edit" />
+          <Icon name={icon} />
           <EmptyListText>
-            Comece já a cadastrar {'\n'}
-            as suas {'\n'}
-            despesas e receitas... 
+            {text} 
           </EmptyListText>
     </EmptyListContainer>
   );

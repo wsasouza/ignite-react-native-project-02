@@ -157,7 +157,10 @@ export function Resume() {
 
               <ChartContainer>
               {totalByCategories.length === 0 ? (
-                 <EmptyData /> 
+                 <EmptyData 
+                    icon="frown"
+                    text={`Sem transações. \n Comece logo a \n cadastrar suas \n despesas e receitas.`}
+                 /> 
                ) : (
                
                  <VictoryPie 
