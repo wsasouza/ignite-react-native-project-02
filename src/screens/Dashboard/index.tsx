@@ -72,7 +72,7 @@ export function Dashboard() {
       )
     );
 
-    return `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString(
+    return `${`${lastTransaction.getDate()}`.padStart(2, '0')} de ${lastTransaction.toLocaleString(
       'pt-BR',
       { month: 'long' }
     )}`;
@@ -89,7 +89,7 @@ export function Dashboard() {
     if(!validDate)
       return 'Não há transações'    
 
-    return `01 a ${lastTransactionInterval.getDate()} de ${lastTransactionInterval.toLocaleString(
+    return `01 a ${`${lastTransactionInterval.getDate()}`.padStart(2, '0')} de ${lastTransactionInterval.toLocaleString(
       'pt-BR',
       { month: 'long' }
     )}`;
@@ -237,7 +237,7 @@ export function Dashboard() {
               </UserInfo>
 
               <LogoutButton onPress={signOut}>
-                <Icon name="power" />
+                <Icon name="log-out" />
               </LogoutButton>
             </UserWrapper>
           </Header>

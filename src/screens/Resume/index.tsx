@@ -159,7 +159,7 @@ export function Resume() {
               {totalByCategories.length === 0 ? (
                  <EmptyData 
                     icon="frown"
-                    text={`Sem transações. \n Comece logo a \n cadastrar suas \n despesas e receitas.`}
+                    text={`Sem transações. \n Comece logo a \n cadastrar as suas \n despesas e receitas.`}
                  /> 
                ) : (
                
